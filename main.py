@@ -32,13 +32,18 @@ if file_upload:
     exp2 = st.expander("Visão Geral por Instituição")
     df_intituicao = df.pivot_table(index='Data', values='Valor', columns='Instituição')
     
+    # Cria abas dentro do expander
     tab_data, tab_history,tab_share = exp2.tabs(["Tabela de Valores por Data", "Histórico", "Distribuição"])
+    
+    # Exibe o DataFrame em cada aba
     with tab_data:  
         st.dataframe(df_intituicao)
-        
+    
+    # Exibe o gráfico de linha no aba de histórico
     with tab_history:
         st.line_chart(df_intituicao)
         
+    # Exibe o gráfico de barras na aba de distribuição
     with tab_share:
         date = st.date_input("Data para Distribuicão", 
                              min_value=df_intituicao.index.min(), 
